@@ -8,7 +8,7 @@ k = 7225200         # N/m
 c = 3600          # N·s/m
 dt = 0.01        # 步长
 t = np.arange(0, 10, dt)
-F = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\timeAndForce.xlsx", usecols='B').squeeze().to_numpy()  # 扰动力
+F = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\#1timeAndForce.xlsx", usecols='B').squeeze().to_numpy()  # 扰动力
 
 # 初值定义
 y = np.zeros_like(t)

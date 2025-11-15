@@ -1,5 +1,5 @@
-import pandas as pd
+import numpy as np
 
-F = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\timeAndForce.xlsx", usecols='B')
-
-print(F.loc[999])
+a = np.arange(0, 10, 1)
+print(a)
+print(a[0])

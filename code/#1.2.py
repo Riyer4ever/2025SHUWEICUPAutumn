@@ -13,10 +13,10 @@ m_block = 100       # 单块偏心质量 kg
 r       = 0.2       # 旋转半径 m
 
 # 1. 扰动力：单列 B 1000 点
-F_dist = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\timeAndForce.xlsx", usecols='B').squeeze().to_numpy()
+F_dist = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\#1timeAndForce.xlsx", usecols='B').squeeze().to_numpy()
 
 # 2. 四块独立角度：五列 [time, theta1, theta2, theta3, theta4]（rad）
-ang_df = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\theta.xlsx")
+ang_df = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\#1theta.xlsx")
 theta = ang_df[['theta1', 'theta2', 'theta3', 'theta4']].to_numpy().T  # 4×N
 omega = np.gradient(theta, dt, axis=1)                                # 4×N
 
