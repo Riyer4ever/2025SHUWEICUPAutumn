@@ -2,21 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# ---------------- 参数区 ----------------
+# 定义变量
 m = 2000          # kg
 k = 7225200         # N/m
 c = 3600          # N·s/m
 dt = 0.01        # 步长
 t = np.arange(0, 10, dt)
 F = pd.read_excel(r"D:\workspace\SHUWEICUP2544531_2025.11.14\ProblemA\timeAndForce.xlsx", usecols='B').squeeze().to_numpy()  # 扰动力
-# ---------------------------------------
 
-# 初始条件
+# 初值定义
 y = np.zeros_like(t)
 v = np.zeros_like(t)
 y[0], v[0] = 0.01, 0          # y(0)=0.01 m, v(0)=0
 
-# 右端函数：返回加速度
+# 加速度
 def acc(y, v, F_val):
     return (F_val - c*v - k*y) / m
 
@@ -38,13 +37,13 @@ for i in range(len(t)-1):
     y[i+1] = y[i] + (dt/6)*(k1y + 2*k2y + 2*k3y + k4y)
     v[i+1] = v[i] + (dt/6)*(k1v + 2*k2v + 2*k3v + k4v)
 
-# 直接用公式算加速度（无差分）
+# 计算加速度
 a = (F - c*v - k*y) / m
 
 # 振动指标
 I_h = np.mean(a**2)
 
-# ---------------- 绘图 ----------------
+# 制图
 plt.figure(figsize=(10, 4))
 plt.subplot(1, 2, 1)
 plt.plot(t, y)
@@ -56,5 +55,5 @@ plt.xlabel('time / s'); plt.ylabel('ÿ / m·s⁻²'); plt.title('Lateral acceler
 plt.tight_layout()
 plt.show()
 
-# ---------------- 结果 ----------------
+# 输出横向振动指标
 print(f'RK4 无控振动指标  I_h = {I_h:.4f} (m²/s⁴)')
