@@ -1,0 +1,50 @@
+# 2025 ShuWei-Cup Problem A-2  
+**Active Vibration Suppression with Centrifugal Actuators**  
+*RK4 + Fourier Parameterization + CMA-ES Optimization*
+
+---
+
+## 1 问题回顾
+在已知横向扰动力时间序列（Scenario 2，0~10 s，$Δt = 0.01$ s）的前提下，为两台对角安装的离心式作动器设计**角位移曲线** $θ₁(t)$, $θ₂(t)$，使车体横向振动指标
+
+$$
+I_h = \frac{1}{T}\int_0^T a_y^2(t)\,dt
+$$
+
+最小，并满足物理极限：
+- 偏心块最大角速度 ≤ 100 rad/s
+- 最大角加速度 ≤ 5000 rad/s²
+
+---
+
+## 2 系统动力学模型
+| 符号 | 含义 | 值 |
+|---|---|---|
+| m | 车体质量 | 2000 kg |
+| c | 等效阻尼 | 3600 N·s/m |
+| k | 等效刚度 | 7.2252×10⁶ N/m |
+| mₑ | 单偏心块质量 | 100 kg |
+| r | 旋转半径 | 0.2 m |
+
+横向运动方程：
+
+$$
+m\ddot{y} + c\dot{y} + ky = F_{\text{dist}}(t) + F_{\text{act}}(t)
+$$
+
+两台作动器各含 4 个偏心块，对称反向旋转，y 向合力：
+
+$$
+F_{\text{act}}(t) = 2m_e r\omega^2\bigl[\sin\theta_1(t) + \sin\theta_2(t)\bigr]
+$$
+
+（工作角速度 ω 取最大值 100 rad/s，仅通过 θ(t) 调制出力方向与大小。）
+
+---
+
+## 3 求解思路
+1. **RK4 积分**：步长 0.01 s，与数据采样同步。  
+2. **参数化 θ(t)**：采用低阶 Fourier 级数（默认 6 阶，2×13=26 维参数）。  
+3. **优化算法**：CMA-ES 最小化 I_h。  
+4. **硬约束**：后处理检查角速度/加速度，超限则加 penalty。  
+5. **对比输出**：无控 vs 有控位移、加速度曲线及角位移指令。
