@@ -21,8 +21,8 @@ $$
 ## 3. 求解步骤
 
 1. **读入角度数据**
-   - 时间列：\( t \in [0, 10] \) s，步长 \( \Delta t = 0.01 \) s
-   - 角度：从 `Scenario1_theta.txt` 读取 \( \theta(t) \)
+   - 时间列：$t \in [0, 10]$ s，步长 $\Delta t = 0.01$ s
+   - 角度：从 `Scenario1_theta.txt` 读取 $\theta(t)$
 
 2. **计算角速度与作动力**
    - 角速度：\( \omega(t) = \dfrac{d\theta}{dt} \)（用 `np.gradient`）
